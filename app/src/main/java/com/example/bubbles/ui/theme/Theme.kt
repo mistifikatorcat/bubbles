@@ -1,58 +1,97 @@
 package com.example.bubbles.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+/* ───────── Color swatches ───────── */
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+private object Palette {
+    /* Light */
+    val lightPrimary   = Color(0xFFD9D7D7)
+    val lightSecondary = Color(0xFF525F70)
+    val lightSurface   = Color(0xFFFFFFFF)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
+    /* Soft Light */
+    val softPrimary    = Color(0xFFD4A8EC)
+    val softSecondary  = Color(0xFF525355)
+    val softSurface    = Color(0xFFF8E8B8)
 
-@Composable
-fun BubblesTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    /* Night */
+    val nightPrimary   = Color(0xFF80CFFF)
+    val nightSecondary = Color(0xFFB3CADC)
+    val nightSurface   = Color(0xFF0B1320)
+
+    /* Amoled */
+    val amoledPrimary  = Color(0xFF28FF33)
+    val amoledSecondary= Color(0xFFCEFC07)
+    val amoledSurface  = Color(0xFF000000)
+}
+
+/* ───────── Public theme enum ───────── */
+
+enum class AppTheme {
+   System, Light, SoftLight, Night, Amoled;
+
+    /** Material-3 ColorScheme for this theme */
+    val scheme: ColorScheme
+        get() = when (this) {
+            Light -> lightColorScheme(
+                primary   = Palette.lightPrimary,
+                secondary = Palette.lightSecondary,
+                surface   = Palette.lightSurface,
+            )
+            SoftLight -> lightColorScheme(
+                primary   = Palette.softPrimary,
+                secondary = Palette.softSecondary,
+                surface   = Palette.softSurface,
+            )
+            Night -> darkColorScheme(
+                primary   = Palette.nightPrimary,
+                secondary = Palette.nightSecondary,
+                surface   = Palette.nightSurface,
+            )
+            Amoled -> darkColorScheme(
+                primary   = Palette.amoledPrimary,
+                secondary = Palette.amoledSecondary,
+                surface   = Palette.amoledSurface,
+                onSurface = Color.White            // legible on #000
+            )
+            else      -> error("System theme is resolved at runtime")
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    /** Pretty name for UI lists */
+    fun displayName() = when (this) {
+        System -> "System default"
+        Light     -> "Light"
+        SoftLight -> "Soft Light"
+        Night     -> "Night"
+        Amoled    -> "AMOLED"
     }
+}
 
+/* ───────── Theme wrapper ───────── */
+
+@Composable
+fun BubbleTheme(
+    appTheme: AppTheme,
+    content: @Composable () -> Unit
+) {
+    val colors = when (appTheme){
+        AppTheme.System -> {
+            if (isSystemInDarkTheme()) AppTheme.Night.scheme
+            else AppTheme.Light.scheme
+        }
+        else -> appTheme.scheme
+    }
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+        colorScheme = appTheme.scheme,
+        typography  = Typography,
+//        shapes      = Shapes,
+        content     = content
     )
 }

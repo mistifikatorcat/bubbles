@@ -65,7 +65,7 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit)
     }
 
     // Outer box is now the true root with proper layering
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize() .background(MaterialTheme.colorScheme.surface)) {
 
         // Game UI (z-index = 0)
         Column(
@@ -75,7 +75,7 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit)
                 .zIndex(0f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Bubbles", style = MaterialTheme.typography.headlineMedium)
+            Text("Bubbles", style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.secondary)
             Spacer(Modifier.height(8.dp))
 
             Row(
@@ -87,17 +87,17 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit)
                     Icon(
                         painter = painterResource(id = R.drawable.burger),
                         contentDescription = "Pause",
-                        tint = Color.Black
+                        tint = MaterialTheme.colorScheme.secondary
                     )
                 }
 
-                Text("Score: $score", style = MaterialTheme.typography.titleMedium)
+                Text("Score: $score", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.secondary)
 
                 IconButton(onClick = { viewModel.resetGame() }, modifier = Modifier.size(32.dp)) {
                     Icon(
                         painter = painterResource(id = R.drawable.restart_icon),
                         contentDescription = "Restart",
-                        tint = Color.Black
+                        tint = MaterialTheme.colorScheme.secondary
                     )
                 }
             }

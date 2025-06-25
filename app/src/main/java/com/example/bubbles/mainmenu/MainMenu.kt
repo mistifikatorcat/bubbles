@@ -49,7 +49,7 @@ fun MainMenuView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFFFFF)),
+            .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ){
         Snowfall(bubbleColors = bubbleColors)
@@ -75,7 +75,7 @@ fun MainMenuView(
                 Text(
                     text = "Bubbles",
                     style = MaterialTheme.typography.headlineLarge,
-                    color = Color(0xFF333333)
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
             if (isStartGameMenuOpen){
@@ -127,7 +127,7 @@ fun MainMenuView(
 
             Spacer(Modifier.height(40.dp))
             Text("Version ${GameVersion.VERSION}", fontSize = 12.sp, color = Color.Red)
-            Text("Created by Daniel Evgrafov", fontSize = 12.sp, color = Color.Black.copy(alpha = 0.4f))
+            Text("Created by Daniel Evgrafov", fontSize = 12.sp, color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f))
         }
     }
 }
