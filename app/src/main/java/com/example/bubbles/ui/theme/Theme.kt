@@ -19,7 +19,8 @@ private object Palette {
     /* Soft Light */
     val softPrimary    = Color(0xFFD4A8EC)
     val softSecondary  = Color(0xFF525355)
-    val softSurface    = Color(0xFFF8E8B8)
+    val softSurface    = Color(0xFFFFE6C7) //dusty
+    //val softSurface = Color(0xFFFFDCBD) //peachy
 
     /* Night */
     val nightPrimary   = Color(0xFF80CFFF)
