@@ -1,4 +1,4 @@
-package com.example.bubbles.ui.theme
+package com.example.bubbles.ui.theme.modules
 
 
 import androidx.compose.foundation.background

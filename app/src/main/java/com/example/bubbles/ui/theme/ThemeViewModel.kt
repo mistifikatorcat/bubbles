@@ -1,13 +1,21 @@
 package com.example.bubbles.ui.theme
 
-import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-class ThemeViewModel : ViewModel() {
+class ThemeViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val _theme = MutableStateFlow(AppTheme.Light)
-    val theme: StateFlow<AppTheme> = _theme
+    private val prefs = ThemePrefs(app)
 
-    fun setTheme(theme: AppTheme) { _theme.value = theme }
+    val theme: StateFlow<AppTheme> = prefs.theme
+        .stateIn(viewModelScope, SharingStarted.Eagerly, AppTheme.System)
+
+    fun setTheme(theme: AppTheme) = viewModelScope.launch {
+        prefs.setTheme(theme)
+    }
 }

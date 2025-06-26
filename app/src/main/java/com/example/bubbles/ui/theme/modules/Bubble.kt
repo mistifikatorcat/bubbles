@@ -1,4 +1,4 @@
-package com.example.bubbles.ui.theme
+package com.example.bubbles.ui.theme.modules
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

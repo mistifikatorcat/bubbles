@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bubbles.mainmenu.MainMenuView
 import com.example.bubbles.settings.SettingsScreen
 import com.example.bubbles.ui.theme.BubbleTheme
-import com.example.bubbles.ui.theme.GameScreen
+import com.example.bubbles.ui.theme.modules.GameScreen
 import com.example.bubbles.ui.theme.ThemeViewModel
 import com.example.bubbles.viewmodel.GameViewModel
 import com.example.bubbles.viewmodel.GameViewModelFactory

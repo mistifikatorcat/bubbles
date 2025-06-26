@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     // Jetpack Compose ViewModel support
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
+    implementation ("androidx.datastore:datastore-preferences:1.1.7")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
