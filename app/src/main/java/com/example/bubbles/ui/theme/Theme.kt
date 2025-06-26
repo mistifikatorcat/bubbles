@@ -38,33 +38,6 @@ private object Palette {
 enum class AppTheme {
    System, Light, SoftLight, Night, Amoled;
 
-//    /** Material-3 ColorScheme for this theme */
-//    val scheme: ColorScheme
-//        get() = when (this) {
-//            Light -> lightColorScheme(
-//                primary   = Palette.lightPrimary,
-//                secondary = Palette.lightSecondary,
-//                surface   = Palette.lightSurface,
-//            )
-//            SoftLight -> lightColorScheme(
-//                primary   = Palette.softPrimary,
-//                secondary = Palette.softSecondary,
-//                surface   = Palette.softSurface,
-//            )
-//            Night -> darkColorScheme(
-//                primary   = Palette.nightPrimary,
-//                secondary = Palette.nightSecondary,
-//                surface   = Palette.nightSurface,
-//            )
-//            Amoled -> darkColorScheme(
-//                primary   = Palette.amoledPrimary,
-//                secondary = Palette.amoledSecondary,
-//                surface   = Palette.amoledSurface,
-//                onSurface = Color.White            // legible on #000
-//            )
-//            else      -> error("System theme is resolved at runtime")
-//        }
-
     /** Pretty name for UI lists */
     fun displayName() = when (this) {
         System -> "System default"
@@ -128,7 +101,6 @@ fun BubbleTheme(
     MaterialTheme(
         colorScheme = colors,
         typography  = Typography,
-//        shapes      = Shapes,
         content     = content
     )
 }
