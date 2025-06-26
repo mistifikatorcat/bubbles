@@ -38,32 +38,32 @@ private object Palette {
 enum class AppTheme {
    System, Light, SoftLight, Night, Amoled;
 
-    /** Material-3 ColorScheme for this theme */
-    val scheme: ColorScheme
-        get() = when (this) {
-            Light -> lightColorScheme(
-                primary   = Palette.lightPrimary,
-                secondary = Palette.lightSecondary,
-                surface   = Palette.lightSurface,
-            )
-            SoftLight -> lightColorScheme(
-                primary   = Palette.softPrimary,
-                secondary = Palette.softSecondary,
-                surface   = Palette.softSurface,
-            )
-            Night -> darkColorScheme(
-                primary   = Palette.nightPrimary,
-                secondary = Palette.nightSecondary,
-                surface   = Palette.nightSurface,
-            )
-            Amoled -> darkColorScheme(
-                primary   = Palette.amoledPrimary,
-                secondary = Palette.amoledSecondary,
-                surface   = Palette.amoledSurface,
-                onSurface = Color.White            // legible on #000
-            )
-            else      -> error("System theme is resolved at runtime")
-        }
+//    /** Material-3 ColorScheme for this theme */
+//    val scheme: ColorScheme
+//        get() = when (this) {
+//            Light -> lightColorScheme(
+//                primary   = Palette.lightPrimary,
+//                secondary = Palette.lightSecondary,
+//                surface   = Palette.lightSurface,
+//            )
+//            SoftLight -> lightColorScheme(
+//                primary   = Palette.softPrimary,
+//                secondary = Palette.softSecondary,
+//                surface   = Palette.softSurface,
+//            )
+//            Night -> darkColorScheme(
+//                primary   = Palette.nightPrimary,
+//                secondary = Palette.nightSecondary,
+//                surface   = Palette.nightSurface,
+//            )
+//            Amoled -> darkColorScheme(
+//                primary   = Palette.amoledPrimary,
+//                secondary = Palette.amoledSecondary,
+//                surface   = Palette.amoledSurface,
+//                onSurface = Color.White            // legible on #000
+//            )
+//            else      -> error("System theme is resolved at runtime")
+//        }
 
     /** Pretty name for UI lists */
     fun displayName() = when (this) {
@@ -75,7 +75,46 @@ enum class AppTheme {
     }
 }
 
+private fun AppTheme.toScheme(): ColorScheme = when (this) {
+    AppTheme.Light -> lightColorScheme(
+        primary   = Palette.lightPrimary,
+        secondary = Palette.lightSecondary,
+        surface   = Palette.lightSurface,
+    )
+
+    AppTheme.SoftLight -> lightColorScheme(
+        primary   = Palette.softPrimary,
+        secondary = Palette.softSecondary,
+        surface   = Palette.softSurface,
+        background= Palette.softSurface,
+        onPrimary = Color.White,
+        onSurface = Color(0xFF1C1B18),
+    )
+
+    AppTheme.Night -> darkColorScheme(
+        primary   = Palette.nightPrimary,
+        secondary = Palette.nightSecondary,
+        surface   = Palette.nightSurface,
+    )
+
+    AppTheme.Amoled -> darkColorScheme(
+        primary    = Palette.amoledPrimary,
+        secondary  = Palette.amoledSecondary,
+        surface    = Palette.amoledSurface,
+        background = Palette.amoledSurface,
+        onSurface  = Color.White,
+    )
+
+    // System is resolved at runtime; caller handles it.
+    AppTheme.System -> error("Call AppTheme.System through resolveSystemTheme()")
+}
+
 /* ───────── Theme wrapper ───────── */
+
+@Composable
+private fun resolveSystemTheme(): ColorScheme =
+    if (isSystemInDarkTheme()) AppTheme.Night.toScheme()
+    else AppTheme.Light.toScheme()
 
 @Composable
 fun BubbleTheme(
@@ -83,14 +122,11 @@ fun BubbleTheme(
     content: @Composable () -> Unit
 ) {
     val colors = when (appTheme){
-        AppTheme.System -> {
-            if (isSystemInDarkTheme()) AppTheme.Night.scheme
-            else AppTheme.Light.scheme
-        }
-        else -> appTheme.scheme
+        AppTheme.System -> resolveSystemTheme()
+        else -> appTheme.toScheme()
     }
     MaterialTheme(
-        colorScheme = appTheme.scheme,
+        colorScheme = colors,
         typography  = Typography,
 //        shapes      = Shapes,
         content     = content
