@@ -71,8 +71,11 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit)
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp)
-                .zIndex(0f),
+                .align(Alignment.TopCenter)
+//                .padding(10.dp)
+                .zIndex(0f)
+                .padding(top = 64.dp)
+                .padding(horizontal = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text("Bubbles", style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.secondary)
