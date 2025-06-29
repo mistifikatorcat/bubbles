@@ -23,7 +23,7 @@ fun MenuButton(text: String, onClick: () -> Unit){
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
-            contentColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.9f)
+            contentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f)
         )
     ) {
         Text(text = text)

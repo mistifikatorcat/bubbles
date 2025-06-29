@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +36,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bubbles.R
+import com.example.bubbles.mainmenu.components.MenuButton
 import com.example.bubbles.pause.PauseMenu
 import com.example.bubbles.viewmodel.GameViewModel
 
@@ -126,11 +126,17 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit)
             if (isGameOver) {
                 AlertDialog(
                     onDismissRequest = {},
+                    containerColor = (MaterialTheme.colorScheme.surface),
                     title = { Text("Game over") },
                     text = { Text("Your final score: $score") },
                     confirmButton = {
-                        Button(onClick = { viewModel.resetGame() }) {
-                            Text("Restart")
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            MenuButton("Restart") {
+                                viewModel.resetGame()
+                            }
                         }
                     }
                 )

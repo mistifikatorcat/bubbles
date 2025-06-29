@@ -15,22 +15,26 @@ private object Palette {
     val lightPrimary   = Color(0xFFD9D7D7)
     val lightSecondary = Color(0xFF525F70)
     val lightSurface   = Color(0xFFFFFFFF)
+    val lightOnPrimary = Color(0xFF000000)
 
     /* Soft Light */
     val softPrimary    = Color(0xFFD4A8EC)
     val softSecondary  = Color(0xFF525355)
     val softSurface    = Color(0xFFFFE6C7) //dusty
     //val softSurface = Color(0xFFFFDCBD) //peachy
+    val softOnPrimary = Color(0xFF525355)
 
     /* Night */
     val nightPrimary   = Color(0xFF80CFFF)
     val nightSecondary = Color(0xFFB3CADC)
     val nightSurface   = Color(0xFF0B1320)
+    val nightOnPrimary = Color(0xFFB3CADC)
 
     /* Amoled */
     val amoledPrimary  = Color(0xFF28FF33)
     val amoledSecondary= Color(0xFFCEFC07)
     val amoledSurface  = Color(0xFF000000)
+    val amoledOnPrimary = Color(0xFFCEFC07)
 }
 
 /* ───────── Public theme enum ───────── */
@@ -53,6 +57,7 @@ private fun AppTheme.toScheme(): ColorScheme = when (this) {
         primary   = Palette.lightPrimary,
         secondary = Palette.lightSecondary,
         surface   = Palette.lightSurface,
+        onPrimary = Palette.lightOnPrimary
     )
 
     AppTheme.SoftLight -> lightColorScheme(
@@ -60,7 +65,7 @@ private fun AppTheme.toScheme(): ColorScheme = when (this) {
         secondary = Palette.softSecondary,
         surface   = Palette.softSurface,
         background= Palette.softSurface,
-        onPrimary = Color.White,
+        onPrimary = Palette.softOnPrimary,
         onSurface = Color(0xFF1C1B18),
     )
 
@@ -68,6 +73,7 @@ private fun AppTheme.toScheme(): ColorScheme = when (this) {
         primary   = Palette.nightPrimary,
         secondary = Palette.nightSecondary,
         surface   = Palette.nightSurface,
+        onPrimary = Palette.nightOnPrimary
     )
 
     AppTheme.Amoled -> darkColorScheme(
@@ -76,6 +82,7 @@ private fun AppTheme.toScheme(): ColorScheme = when (this) {
         surface    = Palette.amoledSurface,
         background = Palette.amoledSurface,
         onSurface  = Color.White,
+        onPrimary = Palette.amoledOnPrimary
     )
 
     // System is resolved at runtime; caller handles it.

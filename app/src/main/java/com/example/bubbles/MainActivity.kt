@@ -10,11 +10,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.bubbles.About.AboutScreen
 import com.example.bubbles.mainmenu.MainMenuView
 import com.example.bubbles.settings.SettingsScreen
 import com.example.bubbles.ui.theme.BubbleTheme
-import com.example.bubbles.ui.theme.modules.GameScreen
 import com.example.bubbles.ui.theme.ThemeViewModel
+import com.example.bubbles.ui.theme.modules.GameScreen
 import com.example.bubbles.viewmodel.GameViewModel
 import com.example.bubbles.viewmodel.GameViewModelFactory
 
@@ -22,7 +23,7 @@ import com.example.bubbles.viewmodel.GameViewModelFactory
 sealed class Screen{
     object MainMenu : Screen()
     object Game : Screen()
-//    object Instructions: Screen()
+    object About: Screen()
     object Settings: Screen()
 }
 
@@ -45,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     Screen.MainMenu -> MainMenuView(
                         viewModel = gameViewModel,
                         onStartGame = {currentScreen = Screen.Game},
+                        onShowAbout = {currentScreen = Screen.About},
                         onShowSettings = {currentScreen = Screen.Settings}
                     )
 
@@ -53,8 +55,11 @@ class MainActivity : ComponentActivity() {
                         onBackToMenu = { currentScreen = Screen.MainMenu }
                     )
 
-//                    is Screen.Instructions -> ()
-//
+
+                    Screen.About -> AboutScreen(
+                        onBack = {currentScreen = Screen.MainMenu}
+                    )
+
                      Screen.Settings -> SettingsScreen(
                         current = appTheme,
                         onThemeSelected = {themeViewModel.setTheme(it)},
