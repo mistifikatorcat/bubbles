@@ -90,6 +90,7 @@ fun PodiumPlace( place: Int, score: HighScore, maxScore: Float){
         Text(
             text = score.name,
             style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 4.dp)
         )
     }

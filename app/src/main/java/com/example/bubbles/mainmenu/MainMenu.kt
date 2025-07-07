@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,9 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bubbles.R
 import com.example.bubbles.mainmenu.components.MenuButton
-import com.example.bubbles.mainmenu.components.Snowfall
+import com.example.bubbles.ui.theme.modules.AppBackground
 import com.example.bubbles.utils.GameVersion
-import com.example.bubbles.utils.bubbleColors
 import com.example.bubbles.viewmodel.GameViewModel
 
 @Composable
@@ -44,16 +42,9 @@ fun MainMenuView(
     onShowHiScores: () -> Unit = {}
 ){
 
-    val bubbleColors = bubbleColors
     var isStartGameMenuOpen by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface),
-        contentAlignment = Alignment.Center
-    ){
-        Snowfall(bubbleColors = bubbleColors)
+    AppBackground{
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp)
