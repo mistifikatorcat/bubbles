@@ -83,7 +83,7 @@ fun MainMenuView(
                             .padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("Start Game", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        Text("Start Game", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.height(16.dp))
 
                         if (viewModel.hasSavedGame()){
