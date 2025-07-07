@@ -56,13 +56,19 @@ suspend fun loadHighScores(context: Context): List<HighScore>{
     return highScoreListAdapter.fromJson(json) ?: emptyList()
 }
 
-suspend fun calculatePlayerRank(context: Context, score: Int): Int{
+suspend fun calculatePlayerRank(context: Context, score: Int): Int? {
     val scores = loadHighScores(context)
+
+    if (scores.size >= 3 && score <= scores.last().score) {
+        return null // not a high score
+    }
+
     val tempList = (scores + HighScore("", "", score))
         .sortedByDescending { it.score }
 
-    return tempList.indexOfFirst{it.score == score} + 1
+    return tempList.indexOfFirst { it.score == score } + 1
 }
+
 
 suspend fun saveLastNameUsed(context: Context, name: String){
     context.dataStore.edit { prefs ->

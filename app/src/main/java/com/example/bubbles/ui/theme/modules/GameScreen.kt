@@ -63,11 +63,12 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit,
     LaunchedEffect(isGameOver) {
         if (isGameOver){
             val rank = calculatePlayerRank(context, score)
-            if (rank <= 3){
+            if (rank != null) {
                 playerRank = rank
                 showNameDialog = true
                 viewModel.loadLastName(context)
             }
+
         }
     }
 
