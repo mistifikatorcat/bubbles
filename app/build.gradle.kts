@@ -43,9 +43,13 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
     // Jetpack Compose ViewModel support
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
     implementation ("androidx.datastore:datastore-preferences:1.1.7")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)

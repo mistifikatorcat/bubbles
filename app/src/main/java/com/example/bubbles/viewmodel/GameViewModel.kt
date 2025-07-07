@@ -1,12 +1,17 @@
 package com.example.bubbles.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bubbles.model.Ball
+import com.example.bubbles.scores.HighScore
 import com.example.bubbles.utils.COL_COUNT
 import com.example.bubbles.utils.GameRepository
 import com.example.bubbles.utils.ROW_COUNT
 import com.example.bubbles.utils.bubbleColors
+import com.example.bubbles.utils.loadHighScores
+import com.example.bubbles.utils.loadLastNameUsed
+import com.example.bubbles.utils.saveLastNameUsed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -155,6 +160,39 @@ class GameViewModel(private val repository: GameRepository): ViewModel() {
         _isGameOver.value = false
         repository.clear()
     }
+
+    fun saveHighScore(context: Context, name: String, score: Int, onDone: () -> Unit = {}) {
+        viewModelScope.launch {
+            com.example.bubbles.utils.saveHighScore(context, name, score)
+            highScores.value = loadHighScores(context)
+            onDone()
+        }
+    }
+
+    val highScores = MutableStateFlow<List<HighScore>>(emptyList())
+
+    fun loadScores(context: Context){
+        viewModelScope.launch {
+            highScores.value = loadHighScores(context)
+        }
+    }
+
+    val lastNameUsed = MutableStateFlow("")
+    val lastNameLoaded = MutableStateFlow(false)
+
+    fun loadLastName(context: Context){
+        viewModelScope.launch {
+            lastNameUsed.value = loadLastNameUsed(context)
+            lastNameLoaded.value = true
+        }
+    }
+
+    fun saveLastName(context: Context, name: String){
+        viewModelScope.launch {
+            saveLastNameUsed(context, name)
+        }
+    }
+
 
     private fun <T> List<List<T>>.transpose(): List<List<T>> {
         if (isEmpty()) return emptyList()

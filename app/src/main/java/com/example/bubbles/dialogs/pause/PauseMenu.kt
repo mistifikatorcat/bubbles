@@ -1,4 +1,4 @@
-package com.example.bubbles.pause
+package com.example.bubbles.dialogs.pause
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

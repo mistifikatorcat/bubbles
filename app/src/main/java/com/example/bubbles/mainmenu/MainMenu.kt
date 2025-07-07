@@ -41,6 +41,7 @@ fun MainMenuView(
     onStartGame: () -> Unit,
     onShowAbout: () -> Unit = {},
     onShowSettings: () -> Unit = {},
+    onShowHiScores: () -> Unit = {}
 ){
 
     val bubbleColors = bubbleColors
@@ -122,6 +123,7 @@ fun MainMenuView(
                     isStartGameMenuOpen = true
                 }
                 MenuButton(text = "About", onClick = onShowAbout)
+                MenuButton(text = "High Scores", onClick = onShowHiScores)
                 MenuButton(text = "Settings", onClick = onShowSettings)
             }
 
