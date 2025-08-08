@@ -6,7 +6,7 @@ const val ROW_COUNT = 15
 const val COL_COUNT = 10
 
 object GameVersion {
-    const val VERSION = "0.4.2release"
+    const val VERSION = "0.4.9 ver-1 pre-release"
 }
 
 val bubbleColors = listOf(

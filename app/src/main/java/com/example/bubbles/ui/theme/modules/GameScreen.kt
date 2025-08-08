@@ -1,11 +1,13 @@
 package com.example.bubbles.ui.theme.modules
 
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +35,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.zIndex
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -46,6 +49,7 @@ import com.example.bubbles.utils.calculatePlayerRank
 import com.example.bubbles.viewmodel.GameViewModel
 
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit, onShowScores: () -> Unit) {
@@ -132,23 +136,32 @@ fun GameScreen(viewModel: GameViewModel = viewModel(), onBackToMenu: () -> Unit,
 
             Spacer(Modifier.height(16.dp))
 
-            for ((y, row) in grid.withIndex()) {
-                Row {
-                    for ((x, ball) in row.withIndex()) {
-                        if (ball != null) {
-                            Bubble(color = ball.color) {
-                                if (!isPaused) {
-                                    viewModel.onCellClick(x, y)
+            BoxWithConstraints(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                val cellSize = min(maxWidth / grid.first().size, (maxHeight - 200.dp) / grid.size) // subtract space for score + title
+
+                Column {
+                    for ((y, row) in grid.withIndex()) {
+                        Row {
+                            for ((x, ball) in row.withIndex()) {
+                                if (ball != null) {
+                                    Bubble(color = ball.color, size = cellSize) {
+                                        if (!isPaused) {
+                                            viewModel.onCellClick(x, y)
+                                        }
+                                    }
+                                } else {
+                                    Spacer(modifier = Modifier.size(cellSize).padding(2.dp))
                                 }
                             }
-                        } else {
-                            Spacer(modifier = Modifier
-                                .size(37.dp)
-                                .padding(2.dp))
                         }
                     }
                 }
             }
+
+
 
             if (isGameOver && !showNameDialog) {
 
