@@ -1,0 +1,4 @@
+# Always use LF line endings for these files
+*.sh text eol=lf
+*.properties text eol=lf
+.git/hooks/pre-commit text eol=lf
