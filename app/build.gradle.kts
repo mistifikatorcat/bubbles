@@ -1,3 +1,10 @@
+import java.util.Properties
+
+val versionProps = Properties().apply {
+    load(rootProject.file("version.properties").inputStream())
+}
+
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -12,8 +19,9 @@ android {
         applicationId = "com.example.bubbles"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+
+        versionCode = versionProps["VERSION_CODE"].toString().toInt()
+        versionName = versionProps["VERSION_NAME"].toString()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
